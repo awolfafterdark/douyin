@@ -60,9 +60,9 @@ MaxHeaderBytes: 4096,
 httpServer.ListenAndServe()
 }
 
-typeWsHandler struct {
-sv *FayProxyServer
-upgrader websocket.Upgrader
+type WsHandler struct {
+    sv *FayProxyServer
+    upgrader websocket.Upgrader
 }
 
 func (h *WsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
