@@ -4,69 +4,69 @@ import "encoding/json"
 
 type MsgType uint32
 
-// 无 = 0,
-// 弹幕消息 = 1,
-// 点赞消息 = 2,
-// 进直播间 = 3,
-// 关注消息 = 4,
-// 礼物消息 = 5,
-// 直播间统计 = 6,
-// 粉丝团消息 = 7,
-// 直播间分享 = 8,
-// 下播 = 9
+// None = 0,
+// Barrage message = 1,
+// Like message = 2,
+// Enter the live broadcast room = 3,
+//Follow news = 4,
+// gift message = 5,
+// Live broadcast room statistics = 6,
+// Fan group message = 7,
+// Live broadcast room sharing = 8,
+//downcast = 9
 const (
-	MsgType_None     MsgType = iota // 无
-	MsgType_DanMu                   // 弹幕信息
-	MsgType_Dianzan                 // 点赞信息
-	MsgType_JoinRoom                // 进直播间
-	MsgType_Star                    // 关注信息
-	MsgType_Gift                    // 礼物信息
-	MsgType_Repo                    // 直播间统计
-	MsgType_FansMsg                 // 粉丝信息
-	MsgType_Share                   // 直播间分享
-	MsgType_Offline                 // 下播
+MsgType_None MsgType = iota // None
+MsgType_DanMu // Danmaku information
+MsgType_Dianzan // Like information
+MsgType_JoinRoom // Enter the live broadcast room
+MsgType_Star // Pay attention to information
+MsgType_Gift // Gift information
+MsgType_Repo // Live broadcast room statistics
+MsgType_FansMsg // Fan information
+MsgType_Share // Live broadcast room sharing
+MsgType_Offline // Download
 )
 
 type FansclubType uint32
 
-//无 = 0,
-//粉丝团升级 = 1,
-//加入粉丝团 = 2
+//None = 0,
+//Fan club upgrade = 1,
+//Join the fan club = 2
 
 const (
-	FansclubType_None     FansclubType = iota
-	FansclubType_Upgrade               // 升级
-	FansclubType_JoinFans              // 加入粉丝团
+FansclubType_None FansclubType = iota
+FansclubType_Upgrade // Upgrade
+FansclubType_JoinFans // Join the fan club
 )
 
 type ShareType uint32
 
-// 未知 = 0,
-// 微信 = 1,
-// 朋友圈 = 2,
-// 微博 = 3,
-// QQ空间 = 4,
+// unknown = 0,
+// WeChat = 1,
+// Moments = 2,
+// Weibo = 3,
+// QQ space = 4,
 // QQ = 5,
-// 抖音好友 = 112
+// TikTok friends = 112
 const (
-	ShareType_Unkonwn      ShareType = iota // 未知
-	ShareType_Wechat                        // 微信
-	ShareType_WechatQuan                    // 朋友圈
-	ShareType_Weibo                         // 微博
-	ShareType_QQZone                        // qq空间
-	ShareType_QQ                            // qq
-	ShareType_DouyinFriend ShareType = 112  // 抖音好友
+ShareType_Unkonwn ShareType = iota // unknown
+ShareType_Wechat // WeChat
+ShareType_WechatQuan // Moments
+ShareType_Weibo // Weibo
+ShareType_QQZone // qq space
+ShareType_QQ // qq
+ShareType_DouyinFriend ShareType = 112 // Douyin friends
 )
 
 type MsgPack struct {
-	MsgType MsgType `json:"type"`
-	Data    string  `json:"data"`
+MsgType MsgType `json:"type"`
+Data string `json:"data"`
 }
 
 func CreateMsgPack(data interface{}, msgType MsgType) *MsgPack {
-	jsonData, _ := json.Marshal(data)
-	return &MsgPack{
-		MsgType: msgType,
-		Data:    string(jsonData),
-	}
+jsonData, _ := json.Marshal(data)
+return &MsgPack{
+MsgType: msgType,
+Data: string(jsonData),
+}
 }
