@@ -1,49 +1,49 @@
 package utils
 
 import (
-	"bytes"
-	"compress/gzip"
+"bytes"
+"compress/gzip"
 )
 
 func GzipEncode(input []byte) ([]byte, error) {
-	// 创建一个新的 byte 输出流
-	var buf bytes.Buffer
-	// 创建一个新的 gzip 输出流
+//Create a new byte output stream
+var buf bytes.Buffer
+//Create a new gzip output stream
 
-	//NoCompression      = flate.NoCompression      // 不压缩
-	//BestSpeed          = flate.BestSpeed          // 最快速度
-	//BestCompression    = flate.BestCompression    // 最佳压缩比
-	//DefaultCompression = flate.DefaultCompression // 默认压缩比
-	//gzip.NewWriterLevel()
-	gzipWriter := gzip.NewWriter(&buf)
-	// 将 input byte 数组写入到此输出流中
-	_, err := gzipWriter.Write(input)
-	if err != nil {
-		_ = gzipWriter.Close()
-		return nil, err
-	}
-	if err := gzipWriter.Close(); err != nil {
-		return nil, err
-	}
-	// 返回压缩后的 bytes 数组
-	return buf.Bytes(), nil
+//NoCompression = flate.NoCompression // No compression
+//BestSpeed = flate.BestSpeed // Fastest speed
+//BestCompression = flate.BestCompression // Best compression ratio
+//DefaultCompression = flate.DefaultCompression //Default compression ratio
+//gzip.NewWriterLevel()
+gzipWriter := gzip.NewWriter(&buf)
+//Write the input byte array to this output stream
+_, err := gzipWriter.Write(input)
+if err != nil {
+_ = gzipWriter.Close()
+return nil, err
+}
+if err := gzipWriter.Close(); err != nil {
+return nil, err
+}
+// Return the compressed bytes array
+return buf.Bytes(), nil
 }
 
 func GzipDecode(input []byte) ([]byte, error) {
-	// 创建一个新的 gzip.Reader
-	bytesReader := bytes.NewReader(input)
-	gzipReader, err := gzip.NewReader(bytesReader)
-	if err != nil {
-		return nil, err
-	}
-	defer func() {
-		// defer 中关闭 gzipReader
-		_ = gzipReader.Close()
-	}()
-	buf := new(bytes.Buffer)
-	// 从 Reader 中读取出数据
-	if _, err := buf.ReadFrom(gzipReader); err != nil {
-		return nil, err
-	}
-	return buf.Bytes(), nil
+//Create a new gzip.Reader
+bytesReader := bytes.NewReader(input)
+gzipReader, err := gzip.NewReader(bytesReader)
+if err != nil {
+return nil, err
+}
+defer func() {
+// Close gzipReader in defer
+_ = gzipReader.Close()
+}()
+buf := new(bytes.Buffer)
+//Read data from Reader
+if _, err := buf.ReadFrom(gzipReader); err != nil {
+return nil, err
+}
+return buf.Bytes(), nil
 }
